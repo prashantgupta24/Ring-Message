@@ -30,6 +30,7 @@ public class MainActivity extends ActionBarActivity implements NoticeDialogFragm
  Button delButton;
  SQLiteDatabase db;
  static String tableName = "mytable";
+ final String contactName = "";
 
 
     @Override
@@ -39,9 +40,21 @@ public class MainActivity extends ActionBarActivity implements NoticeDialogFragm
         contactText = (TextView)findViewById(R.id.contactName);
         messageText = (EditText)findViewById(R.id.message);
         saveButton = (Button)findViewById(R.id.save);
-
         Intent intent = new Intent(this, CallDetectService.class);
         startService(intent);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        contactText.setText(savedInstanceState.getString(contactName));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(contactName, contactText.getText().toString());
+        super.onSaveInstanceState(outState);
     }
 
     public void saveData(View v)
@@ -145,14 +158,14 @@ public class MainActivity extends ActionBarActivity implements NoticeDialogFragm
         }
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
+    }*/
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -165,7 +178,7 @@ public class MainActivity extends ActionBarActivity implements NoticeDialogFragm
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     static final int PICK_CONTACT_REQUEST = 1;  // The request code
 

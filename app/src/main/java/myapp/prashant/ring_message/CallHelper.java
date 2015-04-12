@@ -39,7 +39,7 @@ public class CallHelper  {
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING: // called when someone is ringing to this phone
 
-                   // Toast.makeText(ctx, "Testing!", Toast.LENGTH_LONG).show();
+                 // Toast.makeText(ctx, "Testing!", Toast.LENGTH_LONG).show();
                     Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(incomingNumber));
                     Cursor cursor = ctx.getContentResolver().query(uri, new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME}, incomingNumber, null, null );
                     if(cursor.moveToFirst()){
@@ -70,6 +70,20 @@ public class CallHelper  {
 
                     break;
 
+             /*   case TelephonyManager.CALL_STATE_IDLE:
+
+                   LayoutInflater inflater = LayoutInflater.from(ctx);
+                    View layout = inflater.inflate(R.layout.toast_layout,null);
+
+                    TextView text = (TextView) layout.findViewById(R.id.text);
+                    text.setText("Enddddedd");
+
+                    Toast toast = new Toast(ctx);
+                    toast.setGravity(0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                    break;*/
             }
         }
     }
