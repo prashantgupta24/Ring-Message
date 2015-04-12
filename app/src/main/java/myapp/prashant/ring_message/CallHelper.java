@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.myapplication.R;
+import myapp.prashant.ring_message.R;
 
 /**
  * Created by Prashant on 05-Apr-2015.

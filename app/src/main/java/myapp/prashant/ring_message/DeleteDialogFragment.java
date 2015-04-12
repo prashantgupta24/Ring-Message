@@ -7,7 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.myapplication.R;
+import myapp.prashant.ring_message.R;
 
 /**
  * Created by Prashant on 05-Apr-2015.
