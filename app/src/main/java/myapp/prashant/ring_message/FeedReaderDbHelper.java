@@ -16,7 +16,7 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
     /*"CREATE TABLE mytable (" +  "id" + "integer primary key autoincrement," +
             "name" + "messageText" + TEXT_TYPE+" )";*/
     final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + MainActivity.tableName;
+    "DROP TABLE IF EXISTS " + MainActivity.tableName;
 
     public FeedReaderDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

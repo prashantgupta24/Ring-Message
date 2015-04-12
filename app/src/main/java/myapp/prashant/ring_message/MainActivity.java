@@ -20,7 +20,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import myapp.prashant.ring_message.R;
+import com.myapplication.R;
+
 
 public class MainActivity extends ActionBarActivity implements NoticeDialogFragment.NoticeDialogListener, DeleteDialogFragment.DeleteDialogListener {
 
