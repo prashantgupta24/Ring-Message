@@ -16,35 +16,15 @@
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"/>
 
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
         <TextView
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="italic"
             android:padding="3dp"
             android:textColor="#fff"
-            android:text="@string/click_close"
-            android:textSize="12sp"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/textView" />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:textSize="16sp"
-        android:layout_gravity="center_vertical"/>
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"/>
 
 
-    </LinearLayout>
-
- </LinearLayout>
+</LinearLayout>

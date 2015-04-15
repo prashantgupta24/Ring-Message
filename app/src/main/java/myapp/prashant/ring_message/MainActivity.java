@@ -1,6 +1,5 @@
 package myapp.prashant.ring_message;
 
-import android.R.*;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -11,8 +10,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,7 +25,6 @@ public class MainActivity extends ActionBarActivity implements NoticeDialogFragm
  TextView contactText;
  EditText messageText;
  Button saveButton;
- Button delButton;
  SQLiteDatabase db;
  static String tableName = "mytable";
  final String contactName = "";
@@ -74,6 +70,12 @@ public class MainActivity extends ActionBarActivity implements NoticeDialogFragm
                 t.show();
             }
 
+            else if(message.length()>100)
+            {
+                Toast t = Toast.makeText(getApplicationContext(), R.string.message_too_long, Toast.LENGTH_SHORT);
+                t.setGravity(0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);
+                t.show();
+            }
             else
             insertIntoDB(contactName, message);
     }

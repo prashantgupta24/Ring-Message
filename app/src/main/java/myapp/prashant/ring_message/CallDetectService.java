@@ -19,7 +19,9 @@ public class CallDetectService extends Service {
         callHelper = new CallHelper(this);
 
         int res = super.onStartCommand(intent, flags, startId);
-        callHelper.start();
+        callHelper.run();
+        //callHelperThread = new Thread(callHelper);
+        //callHelperThread.start();
         return res;
     }
 

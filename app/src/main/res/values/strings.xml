@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="select_contact">Please select a contact first!</string>
     <string name="type_message">Please type a message!</string>
+    <string name="message_too_long">Message exceeds character limit!</string>
     <string name="saved">Saved!</string>
     <string name="no_message_saved">No message saved!</string>
     <string name="deleted">Deleted!</string>
@@ -14,10 +15,11 @@
     <string name="no">No</string>
     <string name="ov_title">Message</string>
     <string name="ov_conf"> "Data already exists. Over-write?"</string>
-    <string name="enter_message">Enter message here...</string>
+    <string name="enter_message">Enter message here...(max 100 characters)</string>
     <string name="save_button">Save</string>
     <string name="choose_contact_button">Choose contact</string>
     <string name="delete_button">Delete message</string>
+    <string name="click_close">(touch to close)</string>
 
     <color name="black">#000000</color>
 </resources>
