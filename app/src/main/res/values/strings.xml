@@ -16,9 +16,9 @@
     <string name="ov_title">Message</string>
     <string name="ov_conf"> "Data already exists. Over-write?"</string>
     <string name="enter_message">Enter message here...(max 100 characters)</string>
-    <string name="save_button">Save</string>
-    <string name="choose_contact_button">Choose contact</string>
-    <string name="delete_button">Delete message</string>
+    <string name="save_button">SAVE</string>
+    <string name="choose_contact_button">CHOOSE CONTACT</string>
+    <string name="delete_button">DELETE</string>
     <string name="click_close">(touch to close)</string>
 
     <color name="black">#000000</color>

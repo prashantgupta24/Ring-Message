@@ -1,5 +1,6 @@
 package myapp.prashant.ring_message;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -20,7 +21,7 @@ import android.widget.Toast;
 import com.myapplication.R;
 
 
-public class MainActivity extends ActionBarActivity implements NoticeDialogFragment.NoticeDialogListener, DeleteDialogFragment.DeleteDialogListener {
+public class MainActivity extends Activity implements NoticeDialogFragment.NoticeDialogListener, DeleteDialogFragment.DeleteDialogListener {
 
  TextView contactText;
  EditText messageText;
