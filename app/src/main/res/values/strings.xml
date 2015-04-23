@@ -22,9 +22,13 @@
     <string name="click_close">(touch to close)</string>
     <string name="display_options">Choose message display options:</string>
     <string name="select_date">Select date</string>
+    <string name="tool_tip">Help - Display time</string>
+    <string name="tool_tip_data">You can now choose for how many days your message will be displayed. \n\n&#8226; Have a date in mind? Select that
+    date, and the message will stop displaying after that date. \n\n&#8226; Have a number in mind? Select that number and the message will
+    stop displaying after that number of times. Simple. \n\nBy default, the app will show the message indefinitely.</string>
     <string-array name="spinnerOptions">
-        <item>Date until display</item>
-        <item>Times to display</item>
+        <item>Display until</item>
+        <item>Display times</item>
     </string-array>
     <string-array name="spinnerText">
         <item>One time</item>

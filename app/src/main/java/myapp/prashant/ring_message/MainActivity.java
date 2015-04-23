@@ -1,12 +1,14 @@
 package myapp.prashant.ring_message;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -37,18 +39,18 @@ import java.util.Locale;
 public class MainActivity extends Activity implements NoticeDialogFragment.NoticeDialogListener, DeleteDialogFragment.DeleteDialogListener,
         AdapterView.OnItemSelectedListener {
 
- TextView contactText;
- EditText messageText;
- Button datePickerField;
- Button saveButton;
- ImageButton imgBtn;
- boolean imageButtonClicked = false;
- SQLiteDatabase db;
- static String tableName = "mytable";
- final String contactName = "";
- ViewSwitcher viewSwitcher;
- Animation anim1, anim2;
+    static String tableName = "mytable";
 
+    private TextView contactText;
+    private EditText messageText;
+    private Button datePickerField;
+    private ImageButton imgBtn;
+    private LinearLayout layout;
+    private SQLiteDatabase db;
+    private String contactName = "contact name";
+    private String datePicked = "date picked";
+    private String layoutOrientation = "layout";
+    private ViewSwitcher viewSwitcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,10 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
         setContentView(R.layout.activity_main);
         contactText = (TextView)findViewById(R.id.contactName);
         messageText = (EditText)findViewById(R.id.message);
-        saveButton = (Button)findViewById(R.id.save);
+        layout = (LinearLayout)findViewById(R.id.layout1);
+        imgBtn = (ImageButton)findViewById(R.id.imageButton);
+        datePickerField = (Button)findViewById(R.id.datePick);
+        viewSwitcher = (ViewSwitcher) findViewById(R.id.viewswitcher);
         initializeSpinner();
         Intent intent = new Intent(this, CallDetectService.class);
         startService(intent);
@@ -66,12 +71,28 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        contactText.setText(savedInstanceState.getString(contactName));
+        String cName = savedInstanceState.getString(contactName);
+        if(!cName.equals(""))
+        {
+            contactText.setText(cName);
+            contactText.setBackgroundResource(R.drawable.contact_choosen_style);
+        }
+        datePickerField.setText(savedInstanceState.getString(datePicked));
+        int vis = savedInstanceState.getInt(layoutOrientation);
+
+        if(vis == View.GONE)
+        {
+            layout.setVisibility(View.GONE);
+            imgBtn.setBackgroundResource(R.drawable.plus);
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(contactName, contactText.getText().toString());
+        outState.putString(datePicked, datePickerField.getText().toString());
+        outState.putInt(layoutOrientation, layout.getVisibility());
+
         super.onSaveInstanceState(outState);
     }
 
@@ -97,7 +118,7 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
         // Apply the adapter to the spinner
         spinnerTimes.setAdapter(adapter);
 
-        viewSwitcher = (ViewSwitcher) findViewById(R.id.viewswitcher);
+        Animation anim1, anim2;
 
         anim1 = AnimationUtils.loadAnimation(this,
                 android.R.anim.slide_in_left);
@@ -111,9 +132,8 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
     public void showDatePicker(View v)
     {
         DatePickerDialog myDatePickerDialog;
-        datePickerField = (Button)findViewById(R.id.datePick);
 
-        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMMM-yyyy", Locale.US);
         Calendar newCalendar = Calendar.getInstance();
         myDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
@@ -130,17 +150,36 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
 
     public void showHideLayout(View v)
     {
-        LinearLayout l = (LinearLayout)findViewById(R.id.layout1);
-        imgBtn = (ImageButton)findViewById(R.id.imageButton);
-        l.getVisibility();
-        if(l.getVisibility() == View.VISIBLE) {
-            l.setVisibility(View.GONE);
+        layout.getVisibility();
+        if(layout.getVisibility() == View.VISIBLE) {
+            layout.setVisibility(View.GONE);
             imgBtn.setBackgroundResource(R.drawable.plus);
         }
         else {
-            l.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.VISIBLE);
             imgBtn.setBackgroundResource(R.drawable.minus);
         }
+    }
+
+    public void showTooltip(View v)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        TextView title = new TextView(this);
+        title.setText(R.string.tool_tip);
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setAllCaps(true);
+        title.setTextSize(20);
+        title.setBackgroundColor(Color.WHITE);
+
+       // builder.setTitle(R.string.tool_tip);
+        builder.setCustomTitle(title);
+        builder.setMessage(R.string.tool_tip_data).setNegativeButton("Close",null);
+
+       AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void saveData(View v)
@@ -183,6 +222,7 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
         t.setGravity(0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);
         t.show();
         contactText.setText("");
+        contactText.setBackgroundResource(0);
         messageText.setText("");
 
     }
@@ -218,6 +258,7 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
             InputMethodManager imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(messageText.getWindowToken(), 0);
             contactText.setText("");
+            contactText.setBackgroundResource(0);
             messageText.setText("");
         }
 
@@ -304,6 +345,7 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
                 String contactName = cursor.getString(contact);
 
                 contactText.setText(contactName);
+                contactText.setBackgroundResource(R.drawable.contact_choosen_style);
 
                 FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(this);
                 db = mDbHelper.getReadableDatabase();
@@ -347,6 +389,7 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
             t.show();
 
             contactText.setText("");
+            contactText.setBackgroundResource(0);
             messageText.setText("");
         }
         else {

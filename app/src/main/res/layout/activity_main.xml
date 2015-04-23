@@ -43,6 +43,7 @@
             android:layout_gravity="center_vertical"
             android:textColor="#FFF"
             android:gravity="center"
+            android:padding="10dp"
             android:layout_marginLeft="20dp" />
 
     </LinearLayout>
@@ -78,6 +79,15 @@
                 android:typeface="sans"
                 android:id="@+id/textView2" />
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton1"
+                android:background="@drawable/question"
+                android:onClick="showTooltip"
+                android:layout_marginLeft="3dp"
+                />
+
         </LinearLayout>
 
         <LinearLayout
@@ -91,16 +101,12 @@
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerOptions"
-                android:layout_gravity="left"
-                android:layout_weight="1"
-               />
+                android:id="@+id/spinnerOptions"/>
 
             <ViewSwitcher
                 android:id="@+id/viewswitcher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="10dp">
 
                 <Spinner
