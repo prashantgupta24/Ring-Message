@@ -13,7 +13,6 @@
     android:layout_height="wrap_content"
     tools:context=".MainActivity"
     android:focusableInTouchMode="true"
-
     android:orientation="vertical">
 
     <LinearLayout
@@ -48,51 +47,121 @@
 
     </LinearLayout>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/message"
-        android:hint="@string/enter_message"
-        android:textColorHint="#FFF"
-        android:textCursorDrawable="@null"
-        android:textColor="#FFF"
-        android:padding="10dp"
-        android:inputType="textCapSentences|textMultiLine"
-        android:background="@drawable/edit_text_style"
-        android:layout_marginTop="20dp"
-        android:maxLength="100"
-        android:height="150dp"
-        android:gravity="top"/>
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton"
+                android:background="@drawable/minus"
+                android:onClick="showHideLayout"
+                android:layout_marginRight="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/display_options"
+                android:textColor="#FFF"
+                android:typeface="sans"
+                android:id="@+id/textView2" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:id="@+id/layout1"
+            android:animateLayoutChanges="false">
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerOptions"
+                android:layout_gravity="left"
+                android:layout_weight="1"
+               />
+
+            <ViewSwitcher
+                android:id="@+id/viewswitcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerText"
+                    android:layout_gravity="right"/>
+
+                <Button
+                    android:id="@+id/datePick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_date"
+                    android:background="@drawable/buttonshape"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#5d6153"
+                    android:padding="10dip"
+                    android:gravity="center"
+                    android:typeface="sans"
+                    android:onClick="showDatePicker"/>
+
+            </ViewSwitcher>
+
+
+         </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:animateLayoutChanges="true">
 
-        <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_button"
-        android:id="@+id/save"
-        android:onClick="saveData"
-        android:background="@drawable/buttonshape"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#5d6153"
-        android:padding="10dip"
-        android:gravity="center"
-        android:typeface="sans"
-        android:layout_weight="1"
-        android:drawableLeft="@drawable/save2"
-        android:layout_marginRight="10dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/message"
+            android:hint="@string/enter_message"
+            android:textColorHint="#FFF"
+            android:textCursorDrawable="@null"
+            android:textColor="#FFF"
+            android:padding="10dp"
+            android:inputType="textCapSentences|textMultiLine"
+            android:background="@drawable/edit_text_style"
+            android:maxLength="100"
+            android:height="100dp"
+            android:gravity="top"/>
 
-        <Button
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/delete_button"
-            android:id="@+id/delMsg"
-            android:onClick="delMsg"
+            android:text="@string/save_button"
+            android:id="@+id/save"
+            android:onClick="saveData"
             android:background="@drawable/buttonshape"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -100,8 +169,28 @@
             android:padding="10dip"
             android:gravity="center"
             android:typeface="sans"
-            android:drawableLeft="@drawable/del"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/save2"
+            android:layout_marginRight="5dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_button"
+                android:id="@+id/delMsg"
+                android:onClick="delMsg"
+                android:background="@drawable/buttonshape"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#5d6153"
+                android:padding="10dip"
+                android:gravity="center"
+                android:typeface="sans"
+                android:drawableLeft="@drawable/del"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

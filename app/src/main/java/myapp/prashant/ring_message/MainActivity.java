@@ -1,6 +1,7 @@
 package myapp.prashant.ring_message;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -9,26 +10,44 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.myapplication.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
-public class MainActivity extends Activity implements NoticeDialogFragment.NoticeDialogListener, DeleteDialogFragment.DeleteDialogListener {
+
+public class MainActivity extends Activity implements NoticeDialogFragment.NoticeDialogListener, DeleteDialogFragment.DeleteDialogListener,
+        AdapterView.OnItemSelectedListener {
 
  TextView contactText;
  EditText messageText;
+ Button datePickerField;
  Button saveButton;
+ ImageButton imgBtn;
+ boolean imageButtonClicked = false;
  SQLiteDatabase db;
  static String tableName = "mytable";
  final String contactName = "";
+ ViewSwitcher viewSwitcher;
+ Animation anim1, anim2;
 
 
     @Override
@@ -38,6 +57,7 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
         contactText = (TextView)findViewById(R.id.contactName);
         messageText = (EditText)findViewById(R.id.message);
         saveButton = (Button)findViewById(R.id.save);
+        initializeSpinner();
         Intent intent = new Intent(this, CallDetectService.class);
         startService(intent);
     }
@@ -53,6 +73,74 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(contactName, contactText.getText().toString());
         super.onSaveInstanceState(outState);
+    }
+
+    private void initializeSpinner()
+    {
+
+        Spinner spinnerOptions = (Spinner) findViewById(R.id.spinnerOptions);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.spinnerOptions, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerOptions.setAdapter(adapter1);
+        spinnerOptions.setOnItemSelectedListener(this);
+
+        Spinner spinnerTimes = (Spinner) findViewById(R.id.spinnerText);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.spinnerText, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerTimes.setAdapter(adapter);
+
+        viewSwitcher = (ViewSwitcher) findViewById(R.id.viewswitcher);
+
+        anim1 = AnimationUtils.loadAnimation(this,
+                android.R.anim.slide_in_left);
+        anim2 = AnimationUtils.loadAnimation(this,
+                android.R.anim.slide_out_right);
+
+        viewSwitcher.setInAnimation(anim1);
+        viewSwitcher.setOutAnimation(anim2);
+    }
+
+    public void showDatePicker(View v)
+    {
+        DatePickerDialog myDatePickerDialog;
+        datePickerField = (Button)findViewById(R.id.datePick);
+
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        Calendar newCalendar = Calendar.getInstance();
+        myDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                datePickerField.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        myDatePickerDialog.show();
+    }
+
+    public void showHideLayout(View v)
+    {
+        LinearLayout l = (LinearLayout)findViewById(R.id.layout1);
+        imgBtn = (ImageButton)findViewById(R.id.imageButton);
+        l.getVisibility();
+        if(l.getVisibility() == View.VISIBLE) {
+            l.setVisibility(View.GONE);
+            imgBtn.setBackgroundResource(R.drawable.plus);
+        }
+        else {
+            l.setVisibility(View.VISIBLE);
+            imgBtn.setBackgroundResource(R.drawable.minus);
+        }
     }
 
     public void saveData(View v)
@@ -274,4 +362,17 @@ public class MainActivity extends Activity implements NoticeDialogFragment.Notic
         t.setGravity(0, Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL);
         t.show();    */
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        viewSwitcher = (ViewSwitcher) findViewById(R.id.viewswitcher);
+        viewSwitcher.showPrevious();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
 }

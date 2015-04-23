@@ -20,6 +20,19 @@
     <string name="choose_contact_button">CHOOSE CONTACT</string>
     <string name="delete_button">DELETE</string>
     <string name="click_close">(touch to close)</string>
+    <string name="display_options">Choose message display options:</string>
+    <string name="select_date">Select date</string>
+    <string-array name="spinnerOptions">
+        <item>Date until display</item>
+        <item>Times to display</item>
+    </string-array>
+    <string-array name="spinnerText">
+        <item>One time</item>
+        <item>Two times</item>
+        <item>Five times</item>
+        <item>Ten times</item>
+        <item>To infinity and beyond</item>
+    </string-array>
 
     <color name="black">#000000</color>
 </resources>
